@@ -6,6 +6,7 @@ using namespace std;
 string months[12] = { "January", "February", "March", "April", "May", "June",
                       "July", "August", "September", "October", "November", "December" };
 string days[7] = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+
 // Check leap year
 bool isLeapYear(int year) {
     return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
@@ -30,7 +31,8 @@ int getWeekday(int day, int month, int year) {
     int h = (day + 13 * (month + 1) / 5 + K + K/4 + J/4 + 5 * J) % 7;
     return (h + 6) % 7;
 }
-// Print a calendar 
+
+// Print a calendar like `cal`
 void printMonthCalendar(int month, int year) {
     cout << "     " << months[month - 1] << " " << year << endl;
     cout << "Su Mo Tu We Th Fr Sa" << endl;
@@ -47,6 +49,41 @@ void printMonthCalendar(int month, int year) {
             cout << endl;
     }
     cout << "\n" << endl;
+}
+
+// Print all 400 years' calendars
+void printFull400YearCalendar() {
+    for (int year = 1600; year < 2000; ++year) {
+        for (int month = 1; month <= 12; ++month) {
+            printMonthCalendar(month, year);
+        }
+    }
+}
+
+// Validate if user date is valid
+bool isValidDate(int day, int month, int year) {
+    if (month < 1 || month > 12)
+        return false;
+    int daysInMonth = getDaysInMonth(month, year);
+    return day >= 1 && day <= daysInMonth;
+}
+
+// Show day of week for user-entered date
+void querySpecificDate() {
+    int day, month, year;
+    cout << "\n🔍 Enter a date to find the weekday." << endl;
+    cout << "Day (1-31): "; cin >> day;
+    cout << "Month (1-12): "; cin >> month;
+    cout << "Year: "; cin >> year;
+
+    if (!isValidDate(day, month, year)) {
+        cout << "❌ Invalid date entered.\n";
+        return;
+    }
+
+    int weekday = getWeekday(day, month, year);
+    cout << "📅 " << day << " " << months[month - 1] << " " << year
+         << " falls on a " << days[weekday] << ".\n";
 }
 
 int main(){
