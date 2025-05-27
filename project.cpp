@@ -86,6 +86,43 @@ void querySpecificDate() {
          << " falls on a " << days[weekday] << ".\n";
 }
 
-int main(){
-    cout<<"Hello world";
+int main() {
+    int choice;
+    cout << "📆 Calendar Utility\n";
+    cout << "-----------------------------\n";
+    cout << "1. Print calendar of 400 years (1600–1999)\n";
+    cout << "2. Print calendar for specific month/year\n";
+    cout << "3. Get day of the week for a date\n";
+    cout << "0. Exit\n";
+
+    do {
+        cout << "\nEnter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            printFull400YearCalendar();
+            break;
+        case 2: {
+            int month, year;
+            cout << "Enter month (1-12): "; cin >> month;
+            cout << "Enter year: "; cin >> year;
+            if (month >= 1 && month <= 12)
+                printMonthCalendar(month, year);
+            else
+                cout << "❌ Invalid month.\n";
+            break;
+        }
+        case 3:
+            querySpecificDate();
+            break;
+        case 0:
+            cout << "Exiting program.\n";
+            break;
+        default:
+            cout << "❌ Invalid choice.\n";
+        }
+    } while (choice != 0);
+
+    return 0;
 }
